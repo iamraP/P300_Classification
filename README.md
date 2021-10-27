@@ -1,5 +1,5 @@
 # Masterthesis
-Python Code used for the theis "Improving classification of the P300 component in a tactile brain-computer interface for a patient with ALS"
+Python Code used for the thesis "Improving classification of the P300 component in a tactile brain-computer interface for a patient with ALS"
 #### This repository contains all python code used to manipulate and classify the data of the masterthesis project.
 
 ## Sessionwise_mne.ipynb :
