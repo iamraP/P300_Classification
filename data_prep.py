@@ -37,7 +37,7 @@ def investigate(data_paths,picks= ["Fz","Fc1","Fc2","C3","Cz","C4","Pz"],plot_am
                 raw_list[i] = raw.pick(picks).filter(l_freq=0.1, h_freq=40) # band-pass filter + notch filter
             raw = mne.concatenate_raws(raw_list)
             events, event_id = mne.events_from_annotations(raw)
-            event_id.pop('10')  # remove weird 10 from id dictionary? where did it come from anyway?
+            event_id.pop('10')
             epochs = mne.Epochs(raw, events,
                                 event_id=event_id,
                                 tmin=-0.1, tmax=0.8, #epochs of 900ms starting 100ms before stimulus onset
@@ -77,13 +77,13 @@ def investigate(data_paths,picks= ["Fz","Fc1","Fc2","C3","Cz","C4","Pz"],plot_am
 
     raw = mne.concatenate_raws(raw_list)
     events, event_id = mne.events_from_annotations(raw)
-    event_id.pop('10') # remove weird 10 from id dictionary? where did it come from anyway?
+    event_id.pop('10')
     epochs= mne.Epochs(raw, events, event_id=event_id, tmin=-0.1, tmax=0.8, preload=True,event_repeated='merge',baseline=(None,0),picks=picks,reject=dict(eeg=100e-6))  # timewindow -0.85 so its' 0.8 after resampling baseline=(-0.100,0)
     #epochs = epochs_org.resample(50)
     nt = epochs['0'].average()._data*1e6 #mne data in Volt! create evoked
     t = epochs['1'].average()._data*1e6
     times = epochs.times
-    #epochs.event_id.pop('10')  # remove weird 10 from id dictionary? where did it come from anyway?
+    #epochs.event_id.pop('10')
     new_event_id = {} # empty dictionary
     for key, value in epochs.event_id.items(): # set all targets to 1, non_targets to 0
         new_event_id[value] = 0 if key[0] == "0" else 1
@@ -205,7 +205,7 @@ def load_epochs(data_paths, cov_estimator=None,picks = 'all', resampled_riemann 
             raw_list += data_tuple[0]
     raw = mne.concatenate_raws(raw_list) if calib_runs != 1 else raw
     events, event_id = mne.events_from_annotations(raw)
-    event_id.pop('10') # remove weird 10 from id dictionary? where did it come from anyway?
+    event_id.pop('10') 
     epochs = mne.Epochs(raw, events, event_id=event_id, tmin=0, tmax=0.8, preload=True,
                         event_repeated='merge',baseline=None,picks=picks)  # timewindow -0.85 so its' 0.8 after resampling baselien=(-0.100,0)
 
@@ -230,9 +230,6 @@ def load_epochs(data_paths, cov_estimator=None,picks = 'all', resampled_riemann 
         cov_matrices = cov_estimator.transform(X)
 
     # Initiate xDawn spatial filter:
-    # Barachant: Filtering, then resampling this is not possible due to computation time! Let's see weather this will still be ok
-
-
 
     if xDawn:
         t =time.time()
