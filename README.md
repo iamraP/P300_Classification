@@ -19,3 +19,7 @@ was used to rearange the data so it could be more easily analyzed.
 
 ## 2_Analyze_Data.ipynb :
 was used to visualize the data and for quick analysis.
+
+## Requirements (incomplete)
+mne = 0.23.0 
+TODO: enviroment
